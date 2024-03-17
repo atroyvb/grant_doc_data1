@@ -5,11 +5,23 @@ import pandas as pd
 from regex import D 
 
 
-class NameDistance():
+class string_distance_reader():
     def __init__(self, ft_model_path: str = 'data/cc.en.50.bin'):
         self.ft_model = fasttext.load_model(ft_model_path)
 
-    def training_data(self, df: pd.DataFrame) -> pd.DataFrame:
+    def combine_prediction_data(self, grants: pd.DataFrame, npi: pd.DataFrame) -> pd.DataFrame:
+        """_Combine grants and npi dataframe into pairs  """
+        grants = grants.add_prefix('grant_')
+        npi = npi.add_prefix('npi_')
+        grants['merge_val'] = 1
+        npi['merge_val'] = 1
+
+        return grants.merge[npi, on='merge_val']
+
+
+
+    def features_from_pairs(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Computes distance features from a dataframe of pairs of grant_ and npi_ data"""
         # grants data has:
             # last_name, forename, organization, city, state, country
         # NPI Data has: 
@@ -43,3 +55,7 @@ class NameDistance():
 
 # ft_model = fasttext.load_model('data/cc.en/50.bin')
 # ft_model.get_sentence_vector(s1.lower())
+
+if __name__ == '__main__':
+    df = read_grants_year(2022)
+    df = read('data/')

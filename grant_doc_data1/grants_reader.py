@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class GrantsData:
+class GrantsReader:
     def __init__(self, path: str):
         self.df = pd.read_csv(path, compression='zip')
 
@@ -72,8 +72,8 @@ def read_grants_year(year: int | str) -> pd.DataFrame:
         pd.DataFrame: clean dataframe of grants data
     """
     # We know the filename is: RePORTER_PRJ_C_FY2022.zip
-    path = "/Users/alexistroy/Downloads/RePORTER_PRJ_C_FY2022.zip"
-    gd = GrantsData(path.format(year=year))
+    path = "data/RePORTER_PRJ_C_FY2022.zip"
+    gd = GrantsReader(path.format(year=year))
     return gd.read()
 
 
@@ -82,23 +82,5 @@ if __name__ == '__main__':
     import numpy as np
     # '/mnt/search/data/grants/RePORTER_PRJ_C_FY2022.zip'
 
-    vec1 = [i for i in range(1_000_000)]
-    vec2 = np.arange(1_000_000)
-
-    read_grants_year(2022)
-    # gd = GrantsData()
-
-def fill_in_budget(year: int | str) -> pd.DataFrame:
-    """ To fill in the missing dates for the 'budget_start' column
-
-    Args:
-        year (int | str): year to read 
-
-    Returns:
-        pd.DataFrame: All of the dates filled in 
-    """
-    #path = "/Users/alexistroy/Downloads/RePORTER_PRJ_C_FY2022.zip"
-    #gd2 = GrantsData(path.format(year=year))
-    
-    
+    df = read_grants_year(2022)
     

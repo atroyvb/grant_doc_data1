@@ -2,7 +2,14 @@ import pandas as pd
 
 
 def read(path):
-    path = path
+    """read in NPI 
+
+    Args:
+        path (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
 
     df = pd.read_csv(path)
 
@@ -28,5 +35,5 @@ def read(path):
 
 
 if __name__ == '__main__':
-    df = read(r"pl_pfile_20050523-20240211.csv")
+    df = read("data/pl_pfile_20050523-20240211.csv")
     print(df.head())

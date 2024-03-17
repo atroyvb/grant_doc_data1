@@ -6,7 +6,7 @@ import pandas as pd
 import xgboost as xgb
 import sklearn.model_selection
 from jarowinkler import jaro_winkler
-from distances import NameDistance 
+from grant_doc_data1.string_distance_features import NameDistance 
 
 class distancesClassifier():
     def __init__(self, model_dir: str, model_type: str = 'xgb'):
