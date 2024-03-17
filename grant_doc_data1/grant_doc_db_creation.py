@@ -1,41 +1,36 @@
-import pandas as pd 
+import pandas as pd
 import sqlalchemy
-from grant_doc_data1 import grants_reader 
+
+from grant_doc_data1 import grants_reader
+
 
 def db():
-    engine = sqlalchemy.create_engine('sqlite://data/grant_npi.db')
-    return engine
+    engine = sqlalchemy.create_engine('sqlite:///data/grant_npi.db')
+    conn = engine.connect()
+    return conn
 
 
-def npi_csv_to_db9(csv_path : str):
+def npi_csv_to_db(csv_path: str):
     df = grants_reader.read_grants_year(22)
     df.to_sql('npi',
               db(),
-              if_exists = 'append',
-              index = False)
-            # method = 'multi'
-            # chunksize = 1000
+              if_exists='append',
+              index=False)
+              # method='multi',
+              # chunksize=1000
 
 
-# import sqlite3
+# # Another slash
+# engine = sqlalchemy.create_engine(
+#     'sqlite:////Users/arthur/teaching/duq_ds3_2023/data/live_test_sqlite.db')
+# df = pd.read_csv('data/affiliations.csv')
 
-# query = '''
-# CREATE TABLE IF NOT EXISTS npi(
-#     id INTEGER PRIMARY KEY,
-#     lastname VARCHAR(100) NOT NULL,
-#     forename VARCHAR(100),
+# # Have to account for SQLAlchemy v2
+# with engine.connect() as conn:
+#     df.to_sql('aff', conn, index=False, if_exists='append')
+#     df2 = pd.read_sql(sqlalchemy.text('SELECT * FROM aff'), conn)
+# print(df2)
 
-#     med_school BOOL NOT NULL 
-#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
-# );
-# '''
 
-# conn = sqlite3.connect('data/grant_npi.db')
-# cursor = conn.cursor()
-
-# version_query = 'select sqlite_version();'
-# cursor.execute(version_query)
-# record = cursor.fetchall()
-# print('version is: ', record)
-
-# cursor.close()
+if __name__ == '__main__':
+    npi_csv_to_db('')

@@ -15,18 +15,18 @@ CREATE TABLE IF NOT EXISTS npi(
 );
 '''
 
-conn = sqlite3.connect('data/grant_npi.db')
-cursor = conn.cursor()
+# conn = sqlite3.connect('data/grant_npi.db')
+# cursor = conn.cursor()
 
-# Execute the CREATE TABLE query
-cursor.execute(query)
+# # Execute the CREATE TABLE query
+# cursor.execute(query)
 
-# Check SQLite version
-version_query = 'SELECT sqlite_version();'
-cursor.execute(version_query)
-record = cursor.fetchall()
-print('SQLite version is:', record)
+# # Check SQLite version
+# version_query = 'SELECT sqlite_version();'
+# cursor.execute(version_query)
+# record = cursor.fetchall()
+# print('SQLite version is:', record)
 
-# Close the cursor and connection
-cursor.close()
-conn.close()
+# # Close the cursor and connection
+# cursor.close()
+# conn.close()
