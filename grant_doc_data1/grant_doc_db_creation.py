@@ -1,36 +1,55 @@
-import pandas as pd
-import sqlalchemy
+query = '''
+CREATE TABLE IF NOT EXISTS npi (
+    id INTEGER PRIMARY KEY,
+    lastname VARCHAR(100) NOT NULL,
+    forename VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-from grant_doc_data1 import grants_reader
+'''
+
+query2 = '''
+CREATE TABLE IF NOT EXISTS grants (
+    id INTEGER PRIMARY KEY,
+    lastname VARCHAR(100) NOT NULL,
+    forename VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+'''
+
+query3 = '''
+CREATE TABLE IF NOT EXISTS npi_grants_bridge (
+    id INTEGER PRIMARY KEY,
+    npi_id INTEGER,
+    grants_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (npi_id) REFERENCES npi(id),
+    FOREIGN KEY (grants_id) REFERENCES grants(id)
+);
+
+'''
+
+#Connecting to database
+conn = sqlite3.connect('data/grant_npi.db')
+cursor = conn.cursor()
+
+#Executing Queries
+cursor.execute(query)
+cursor.execute(query2)
+cursor.execute(query3)
 
 
-def db():
-    engine = sqlalchemy.create_engine('sqlite:///data/grant_npi.db')
-    conn = engine.connect()
-    return conn
+#Selecting Version
+version_query = 'select sqlite_version()'
+cursor.execute(version_query)
+record = cursor.fetchall()
+print('version is', record)
 
-
-def npi_csv_to_db(csv_path: str):
-    df = grants_reader.read_grants_year(22)
-    df.to_sql('npi',
-              db(),
-              if_exists='append',
-              index=False)
-              # method='multi',
-              # chunksize=1000
-
-
-# # Another slash
-# engine = sqlalchemy.create_engine(
-#     'sqlite:////Users/arthur/teaching/duq_ds3_2023/data/live_test_sqlite.db')
-# df = pd.read_csv('data/affiliations.csv')
-
-# # Have to account for SQLAlchemy v2
-# with engine.connect() as conn:
-#     df.to_sql('aff', conn, index=False, if_exists='append')
-#     df2 = pd.read_sql(sqlalchemy.text('SELECT * FROM aff'), conn)
-# print(df2)
-
-
-if __name__ == '__main__':
-    npi_csv_to_db('')
+cursor.close()
