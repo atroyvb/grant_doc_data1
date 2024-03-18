@@ -1,3 +1,4 @@
+
 import pandas as pd
 
 
@@ -12,7 +13,7 @@ class GrantsReader:
         # Data can have NaNs
         # Different types (reasonable)
         # Different types (unreasonable)
-        print(self.df)
+        return df
 
     @staticmethod
     def _select_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -56,7 +57,7 @@ class GrantsReader:
         df['pi_names'] = df['pi_names'].str.replace('(contact)', '')
         df['both_names'] = df['pi_names'].apply(lambda x: x.split(',')[:2])
         df[['last_name', 'forename']] = pd.DataFrame(df['both_names'].to_list(), index=df.index)
-        print(df)
+        return df
 
         
 
@@ -80,7 +81,8 @@ def read_grants_year(year: int | str) -> pd.DataFrame:
 
 if __name__ == '__main__':
     import numpy as np
-    # '/mnt/search/data/grants/RePORTER_PRJ_C_FY2022.zip'
 
     df = read_grants_year(2022)
+    print(df)
+    # gd = GrantsData()
     
