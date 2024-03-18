@@ -1,6 +1,5 @@
 import sqlalchemy
 from grant_doc_data1 import npi_reader
-from grant_doc_data1 import read_data_exp
 
 
 def db():
@@ -42,7 +41,7 @@ def grants_csv_to_db(year: int):
     """
 
     #reading in data
-    df = read_data_exp.read_grants_year(year)
+    df = read.read_grants_year(year)
 
     #subsetting to desired columns
     df = df[['last_name', 'forename', 'city', 'state', 'country']]
