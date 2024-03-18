@@ -1,3 +1,5 @@
+import sqlite3
+
 query = '''
 CREATE TABLE IF NOT EXISTS npi (
     id INTEGER PRIMARY KEY,
