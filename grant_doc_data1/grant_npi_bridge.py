@@ -4,7 +4,7 @@ import sqlite3
 conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
 
-#Defining Queries for bridge table
+#Defining queries for bridge table
 query = '''
 INSERT INTO npi_grants_bridge(npi_id)
 SELECT id FROM npi;
