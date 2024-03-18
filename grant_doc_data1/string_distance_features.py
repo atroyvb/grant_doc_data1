@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from regex import D 
 
+from grant_doc_data1 import read_grants_year 
 
 class string_distance_reader():
     def __init__(self, ft_model_path: str = 'data/cc.en.50.bin'):

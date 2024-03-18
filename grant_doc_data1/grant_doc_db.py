@@ -17,7 +17,7 @@ def db():
 
 def npi_csv_to_db(csv_path: str):
     """
-    This function creates a relational database out of the npi csv dataset
+    This function creates a database out of the npi csv dataset
     """
 
     #Make npi data, have to rename columns, match data types, define bridge table, download beekeeper studio
