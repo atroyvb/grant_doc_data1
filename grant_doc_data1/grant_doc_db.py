@@ -26,19 +26,6 @@ def npi_csv_to_db(csv_path: str):
     #Subsetting to desired columns
     df = df[['last_name', 'forename', 'city', 'state', 'country']]
 
-    #Renaming columns to specified names in database table
-    mapper = {
-        'last_name': 'lastname',
-        'forename': 'forename',
-        'city': 'city', 
-        'state': 'state', 
-        'country': 'country'
-    }
-    df = df.rename(columns=mapper)[mapper.values()]
-
-    #Dropping NaNs to enforce NOT NULL parameter
-    df.dropna(inplace=True)
-
     #Translating pandas dataframe to database
     df.to_sql('npi',
               db(),
@@ -54,24 +41,12 @@ def grants_csv_to_db(year: int):
     This function creates a relational database out of the grants csv dataset
     """
 
-    #Reading in data
+    #reading in data
     df = read_data_exp.read_grants_year(year)
 
-    #Subsetting to desired columns
+    #subsetting to desired columns
     df = df[['last_name', 'forename', 'city', 'state', 'country']]
 
-    #Renaming columns to specified names in database table
-    mapper = {
-        'last_name': 'lastname',
-        'forename': 'forename',
-        'city': 'city', 
-        'state': 'state', 
-        'country': 'country'
-    }
-    df = df.rename(columns=mapper)[mapper.values()]
-
-    #Dropping NaNs to enforce NOT NULL parameter
-    df.dropna(inplace=True)
 
     #Translating pandas dataframe to database
     df.to_sql('grants',
