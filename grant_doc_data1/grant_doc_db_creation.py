@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS grants (
 query3 = '''
 CREATE TABLE IF NOT EXISTS npi_grants_bridge (
     id INTEGER PRIMARY KEY,
-    npi_id INTEGER,
-    grants_id INTEGER,
+    npi_id INTEGER NOT NULL,
+    grants_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (npi_id) REFERENCES npi(id),
     FOREIGN KEY (grants_id) REFERENCES grants(id)
