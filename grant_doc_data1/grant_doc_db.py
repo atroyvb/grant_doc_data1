@@ -20,7 +20,7 @@ def npi_csv_to_db(csv_path: str):
     This function creates a database out of the npi csv dataset
     """
 
-    #Make npi data, have to rename columns, match data types, define bridge table, download beekeeper studio
+    #Make npi data
     df = npi_reader.read(csv_path)
 
     #Subsetting to desired columns
