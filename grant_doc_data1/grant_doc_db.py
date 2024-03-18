@@ -3,9 +3,6 @@ from grant_doc_data1 import npi_reader
 
 
 def db():
-    """
-    This function creates a sqlalchemy engine connection to the database
-    """
     engine = sqlalchemy.create_engine(
         'sqlite:///data/grant_npi.db'
     )
@@ -15,9 +12,7 @@ def db():
     return conn
 
 def npi_csv_to_db(csv_path: str):
-    """
-    This function creates a database out of the npi csv dataset
-    """
+
 
     #Make npi data
     df = npi_reader.read(csv_path)
@@ -36,9 +31,6 @@ def npi_csv_to_db(csv_path: str):
               )
     
 def grants_csv_to_db(year: int):
-    """
-    This function creates a relational database out of the grants csv dataset
-    """
 
     #reading in data
     df = read.read_grants_year(year)
