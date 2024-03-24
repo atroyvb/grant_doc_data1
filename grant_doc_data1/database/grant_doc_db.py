@@ -1,8 +1,8 @@
 import pandas as pd
 import sqlalchemy
 
-from grant_data import grants_reader
-from npi_data import npi_reader
+from grant_doc_data1.grant_data import grants_reader
+from grant_doc_data1.npi_data import npi_reader
 
 
 def db():
