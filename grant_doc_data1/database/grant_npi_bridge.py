@@ -1,30 +1,23 @@
 import sqlite3
 
-#Connecting to database
+#Connecting to Database
 conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
 
-#Defining queries for bridge table
-query = '''
-INSERT INTO npi_grants_bridge(npi_id)
-SELECT id FROM npi;
+#Defining query
+sql_query = """
+    INSERT INTO npi_grants_bridge (npi_id, grants_id)
+    SELECT npi.id AS npi_id, grants.id AS grants_id
+    FROM npi 
+    JOIN grants 
+    ON LOWER(npi.lastname) = LOWER(grants.lastname)
+    WHERE grants.forename IS NOT NULL
+    AND grants.city IS NOT NULL
+    LIMIT 50000;
+"""
 
-'''
+#Executing Queries and closing connection
+cursor.execute(sql_query)
+conn.commit()
 
-query2 = '''
-INSERT INTO npi_grants_bridge(grants_id)
-SELECT id FROM grants;
-
-'''
-
-#Executing Queries
-cursor.execute(query)
-cursor.execute(query2)
-
-#Selecting Version
-version_query = 'select sqlite_version()'
-cursor.execute(version_query)
-record = cursor.fetchall()
-print('version is', record)
-
-cursor.close()
+conn.close()
