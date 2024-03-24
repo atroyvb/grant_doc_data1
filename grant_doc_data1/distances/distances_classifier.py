@@ -38,6 +38,6 @@ class NameDistance():
         return df.drop(columns=data_cols).drop(columns=[
             v for v in df.columns if 'vec_' in v])
 
-# ft_model = fasttext.load_model('data/cc.en.50.bin')
+ft_model = fasttext.load_model('data/cc.en.50.bin')
 # ft_model.get_sentence_vector(s1.lower())
     
