@@ -2,26 +2,24 @@ import pandas as pd
 
 
 def read(path: str) -> pd.DataFrame:
-    """Read in NPI data and rename columns"""
+    """Read in an npi file from path, clean, and return"""
     df = pd.read_csv(path)
     mapper = {
             'NPI': 'npi',
-            'Provider Last Name (Legal Name)': 'last_name',
-            'Provider First Name': 'forename',
-            'Provider Business Practice Location Address State Name': 'city',
-            'Provider Business Practice Location Address State Name': 'state',
-            'Provider Business Practice Location Address Country Code (If outside U.S.)': 'country'
+            'Healthcare Provider Taxonomy Code_1': 'npi_taxonomy_code',
+            'Provider Last Name (Legal Name)': 'npi_last_name',
+            'Provider First Name': 'npi_forename',
+            'Provider First Line Business Practice Location Address': 'npi_address',
+            'Certification Date': 'npi_cert_date',
+            'Provider Business Practice Location Address State Name': 'npi_city',
+            'Provider Business Practice Location Address State Name': 'npi_state',
+            'Provider Business Practice Location Address Country Code (If outside U.S.)': 'npi_country'
         }
     
-
     df = df.rename(columns=mapper)[mapper.values()]
     return df
 
-    #There are 850 missing values for taxonomy_code, address, state, and country
-    #There are 6,259 missing last names and 6,262 missing first names
-    #There are 1,505 missing values for cert_date
-
 
 if __name__ == '__main__':
-    df = read('data/npidata_pfile_20240205-20240211.csv')
+    df = read("data/npidata_pfile_20240205-20240211.csv")
     print(df.head())
