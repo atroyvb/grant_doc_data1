@@ -9,17 +9,13 @@ class GrantsReader:
         """Returns a cleaned dataframe"""
         df = self._select_columns(self.df)
         df = self._clean(df)
-        # Data can have NaNs
-        # Different types (reasonable)
-        # Different types (unreasonable)
         return df
+
 
     @staticmethod
     def _select_columns(df: pd.DataFrame) -> pd.DataFrame:
         """Rename and select columns
-        NOTE: Underscored methods are "private methods", otherwise 
-        meaning that we should only call them from WITHIN the class.
-
+        
         Args:
             df (pd.DataFrame): dataframe
 
@@ -40,6 +36,7 @@ class GrantsReader:
         }
         return df.rename(columns=mapper)[mapper.values()]
     
+
     @staticmethod
     def _clean(df: pd.DataFrame) -> pd.DataFrame:
         """Remove NaNs and other cleaning functions
@@ -56,10 +53,8 @@ class GrantsReader:
         df['pi_names'] = df['pi_names'].str.replace('(contact)', '')
         df['both_names'] = df['pi_names'].apply(lambda x: x.split(',')[:2])
         df[['last_name', 'forename']] = pd.DataFrame(df['both_names'].to_list(), index=df.index)
+        df = df.drop(['both_names'], axis=1)
         return df
-
-        
-
 
 
 def read_grants_year(year: int | str) -> pd.DataFrame:
@@ -71,11 +66,9 @@ def read_grants_year(year: int | str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: clean dataframe of grants data
     """
-    # We know the filename is: RePORTER_PRJ_C_FY2022.zip
-    path = "data/RePORTER_PRJ_C_FY2022.zip"
-    gd = GrantsReader(path.format(year=year))
+    path = f"data/RePORTER_PRJ_C_FY{year}.zip"
+    gd = GrantsReader(path)
     return gd.read()
-
 
 
 if __name__ == '__main__':
@@ -83,5 +76,3 @@ if __name__ == '__main__':
 
     df = read_grants_year(2022)
     print(df)
-    # gd = GrantsData()
-    
