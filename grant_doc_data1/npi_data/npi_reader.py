@@ -21,5 +21,5 @@ def read(path: str) -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    df = read("data/npidata_pfile_20240205-20240211.csv")
+    df = read("data/pl_pfile_20050523-20240211.csv")
     print(df.head())

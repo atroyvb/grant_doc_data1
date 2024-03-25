@@ -27,5 +27,5 @@ def npi_csv_to_db(csv_path: str):
 
 
 if __name__ == '__main__':
-    grants_csv_to_db()
-    npi_csv_to_db('data/npidata_pfile_20240205-20240211.csv')
+    # grants_csv_to_db()
+    npi_csv_to_db('data/pl_pfile_20050523-20240211.csv')

@@ -66,7 +66,7 @@ def read_grants_year(year: int | str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: clean dataframe of grants data
     """
-    path = f"data/RePORTER_PRJ_C_FY{year}.zip"
+    path = f"data/RePORTER_PRJ_C_FY20{year}.zip"
     gd = GrantsReader(path)
     return gd.read()
 
